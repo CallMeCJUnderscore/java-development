@@ -1,5 +1,6 @@
 package com.pluralsight;
 import java.util.Arrays;
+
 public class MathApp {
     public static void main(String[] args) {
         double bobSalary = 123;
@@ -21,8 +22,8 @@ public class MathApp {
 
         int[] point1 = {5, 10};
         int[] point2 = {85, 50};
-        int horizontalDiff = Math.abs(point2[0] - point1[0]);
-        int verticalDiff = Math.abs(point2[1] - point1[1]);
+        int horizontalDiff = point2[0] - point1[0];
+        int verticalDiff = point2[1] - point1[1];
         double horizontalSquared = Math.pow(horizontalDiff, 2);
         double verticalSquared = Math.pow(verticalDiff, 2);
         double pointDistance = Math.sqrt(horizontalSquared + verticalSquared);
@@ -33,7 +34,8 @@ public class MathApp {
         double findMyAbs = -3.8;
         System.out.println("\nGiven a value of " + findMyAbs + ", the absolute value of it would be " + Math.abs(findMyAbs) + ".");
 
-        System.out.println("\nHere's a random number somewhere between 0 and 1: " + Math.random() + ".");
+        double randomNum = Math.random();
+        System.out.println("\nHere's a random number somewhere between 0 and 1: " + randomNum + ".");
 
     }
 }
