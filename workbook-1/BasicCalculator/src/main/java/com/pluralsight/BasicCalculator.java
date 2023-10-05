@@ -23,8 +23,7 @@ public class BasicCalculator {
         System.out.println("            (D)ivide");
         System.out.print("Which operation would you like to perform? ");
         operation = scanner.nextLine();
-        operation = operation.toUpperCase();
-        operation = operation.substring(0,1);
+        operation = operation.substring(0,1).toUpperCase();
         switch (operation) {
             case "A":
                 answer = num1 + num2;
@@ -40,8 +39,11 @@ public class BasicCalculator {
                 System.out.println(num1 + " - " + num2 + " = " + answer);
                 break;
             case "D":
-                answer = num1 / num2;
-                System.out.println(num1 + " / " + num2 + " = " + answer);
+                if(num2 == 0) {System.out.println("ERROR: You can't divide by zero!");}
+                else{
+                    answer = num1 / num2;
+                    System.out.println(num1 + " / " + num2 + " = " + answer);
+                }
                 break;
             default:
                 System.out.println("ERROR: Unsupported Operation");
