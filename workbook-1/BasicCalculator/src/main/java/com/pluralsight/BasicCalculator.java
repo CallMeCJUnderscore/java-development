@@ -2,15 +2,12 @@ package com.pluralsight;
 import java.util.Scanner;
 
 public class BasicCalculator {
-    public static void main(String[] args) {
-        //initialize variables
+
+    static Scanner scanner = new Scanner(System.in);
+    public static void initialize(){
         float num1 = 0.0f;
         float num2 = 0.0f;
-        float answer = 0.0f;
-        Scanner scanner = new Scanner(System.in);
         String operation;
-
-        //begin calculator
         System.out.print("Enter the first number: ");
         num1 = scanner.nextFloat();
         System.out.print("Enter the second number: ");
@@ -24,10 +21,13 @@ public class BasicCalculator {
         System.out.print("Which operation would you like to perform? ");
         operation = scanner.nextLine();
         operation = operation.substring(0,1).toUpperCase();
+        calculate(num1, num2, operation);
+    }
+    public static void calculate(float num1, float num2, String operation){
+        float answer = 0.0f;
         switch (operation) {
             case "A":
                 answer = num1 + num2;
-               // System.out.printf("%5g + %.0g = %g\n", num1, num2, answer); HOW DOES THIS WORK AAAAAAAAAAAAAA
                 System.out.println(num1 + " + " + num2 + " = " + answer);
                 break;
             case "M":
@@ -48,6 +48,10 @@ public class BasicCalculator {
             default:
                 System.out.println("ERROR: Unsupported Operation");
         }
+    }
+
+    public static void main(String[] args) {
+        initialize();
         return;
     }
 
