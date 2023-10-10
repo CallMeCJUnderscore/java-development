@@ -17,15 +17,15 @@ public class FullNameApplication {
         lastName = lastName.toUpperCase().substring(0,1) + lastName.toLowerCase().substring(1);
 
         firstName += " ";
-        middleName += " ";
         suffix = ", " + suffix;
 
-        if (middleName.equalsIgnoreCase("NONE ")){
+        if (middleName.equalsIgnoreCase("NONE")){
             middleName = "";
         }
         if (suffix.equalsIgnoreCase(", NONE")){
             suffix = "";
         }
+        middleName+=(middleName.length()==1) ? ". " : " ";
         String fullName = firstName + middleName + lastName + suffix;
 
         return fullName;
