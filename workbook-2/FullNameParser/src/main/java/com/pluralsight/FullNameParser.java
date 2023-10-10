@@ -34,7 +34,7 @@ public class FullNameParser {
         }
 
         if (middleName.length()==1) {middleName+=".";}
-        
+
         System.out.println("First name: " + firstName);
         System.out.println("Middle name: "+ ((middleName.isEmpty())? "(NONE)" : middleName));
         System.out.println("Last name: " + lastName);
