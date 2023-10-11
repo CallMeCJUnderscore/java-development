@@ -13,15 +13,19 @@ public class AddressBuilder {
         System.out.print("Full name: ");
         String input = scanner.nextLine();
         String name = input;
+
         System.out.print("\nBilling Street: "); //gather billing info
         input = scanner.nextLine().trim();
         billing.append(input);
+
         System.out.print("Billing City: ");
         input = scanner.nextLine().trim();
         billing.append("|"+input);
+
         System.out.print("Billing State: ");
         input = scanner.nextLine().trim();
         billing.append("|"+input);
+
         System.out.print("Billing ZIP Code: ");
         input = scanner.nextLine().trim();
         billing.append("|"+input);
@@ -29,12 +33,15 @@ public class AddressBuilder {
         System.out.print("\nShipping Street: "); //gather shipping info
         input = scanner.nextLine().trim();
         shipping.append(input);
+
         System.out.print("Shipping City: ");
         input = scanner.nextLine().trim();
         shipping.append("|"+input);
+
         System.out.print("Shipping State: ");
         input = scanner.nextLine().trim();
         shipping.append("|"+input);
+
         System.out.print("Shipping ZIP: ");
         input = scanner.nextLine().trim();
         shipping.append("|"+input);
@@ -48,33 +55,36 @@ public class AddressBuilder {
         System.out.println("\n Full name: " + name);
 
         //print billing info
-        System.out.println("\n Billing Street: " + output);
+        System.out.println("\nBilling Address:\n" + output); //street
+
         separatorIndex = billing.indexOf("|");
         output = billing.substring(0, separatorIndex);
         billing.delete(0, separatorIndex+1);
-        System.out.println("Billing City: " + output);
+        System.out.print(output+", "); //city
+
         separatorIndex = billing.indexOf("|");
         output = billing.substring(0, separatorIndex);
         billing.delete(0, separatorIndex+1);
-        System.out.println("Billing State: " + output);
+        System.out.print(output+ " "); //state
+
         output = billing.toString();
-        System.out.println("Billing ZIP: " + output);
+        System.out.print(output); //zip
 
         //print shipping info
+        System.out.println("\nShipping Address:\n" + output); //street
+
         separatorIndex = shipping.indexOf("|");
         output = shipping.substring(0, separatorIndex);
         shipping.delete(0, separatorIndex+1);
-        System.out.println("\nShipping Street: " + output);
+        System.out.print(output+", "); //city
+
         separatorIndex = shipping.indexOf("|");
         output = shipping.substring(0, separatorIndex);
         shipping.delete(0, separatorIndex+1);
-        System.out.println("Shipping City: " + output);
-        separatorIndex = shipping.indexOf("|");
-        output = shipping.substring(0, separatorIndex);
-        shipping.delete(0, separatorIndex+1);
-        System.out.println("Shipping State: " + output);
+        System.out.print(output+ " "); //state
+
         output = shipping.toString();
-        System.out.println("Shipping ZIP: " + output);
+        System.out.print(output); //zip
 
     }
 }
