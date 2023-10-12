@@ -17,6 +17,13 @@ public class CellPhone {
         owner ="";
     }
 
+    public CellPhone(long serialNumber, String model, String carrier, String phoneNumber, String owner) { //everything
+        this.setSerialNumber(serialNumber);
+        this.setModel(model);
+        this.setCarrier(carrier);
+        this.setPhoneNumber(phoneNumber);
+        this.setOwner(owner);
+    }
 
     /*----------GETTERS/SETTERS----------*/
     public long getSerialNumber() {
@@ -55,7 +62,10 @@ public class CellPhone {
     }
 
     /*-------------FUNCTIONS-------------*/
-    public void dial(String number){ //calls a given phone number
-        System.out.println(this.owner + " is calling " + number);
+    public void dial(String phoneNumber){ //calls a given phone number
+        System.out.println(this.owner + " is calling " + phoneNumber);
+    }
+    public void dial(CellPhone phone){ //calls a given phone number
+        System.out.println(this.owner + " is calling " + phone.getPhoneNumber());
     }
 }

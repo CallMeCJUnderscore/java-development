@@ -4,17 +4,20 @@ import java.util.Scanner;
 
 public class CellPhoneApplication {
 
-    public static void display(CellPhone myPhone){
-        System.out.println("Serial Number: " + myPhone.getSerialNumber());
-        System.out.println("Phone Model: " + myPhone.getModel());
-        System.out.println("Carrier: " + myPhone.getCarrier());
-        System.out.println("Phone Number: " + myPhone.getPhoneNumber());
-        System.out.println("Owner: " + myPhone.getOwner());
+    public static void display(CellPhone phone){
+        System.out.println("Serial Number: " + phone.getSerialNumber());
+        System.out.println("Phone Model: " + phone.getModel());
+        System.out.println("Carrier: " + phone.getCarrier());
+        System.out.println("Phone Number: " + phone.getPhoneNumber());
+        System.out.println("Owner: " + phone.getOwner());
     }
 
     public static void main(String[] args) {
+
+        //initialize
         CellPhone myPhone = new CellPhone();
         CellPhone myOtherPhone = new CellPhone();
+        CellPhone myFinalPhone = new CellPhone(1234,"Overload","OverCarrier", "999-999-9999", "Overload Man");
         Scanner scanner = new Scanner(System.in);
 
         //set first phone variables
@@ -58,8 +61,13 @@ public class CellPhoneApplication {
         display(myPhone);
         System.out.println();
         display(myOtherPhone);
+        System.out.println();
+        display(myFinalPhone);
         System.out.println("\n");
         myPhone.dial(myOtherPhone.getPhoneNumber());
         myOtherPhone.dial(myPhone.getPhoneNumber());
+        myPhone.dial(myFinalPhone.getPhoneNumber());
+        myOtherPhone.dial(myFinalPhone);
+
     }
 }
