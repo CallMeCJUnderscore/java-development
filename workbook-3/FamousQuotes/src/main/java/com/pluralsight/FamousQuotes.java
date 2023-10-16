@@ -22,7 +22,6 @@ public class FamousQuotes {
         int min = 0;
         Scanner scanner = new Scanner(System.in);
         int index;
-
         while(true){//run infinitely until prompted by user
             System.out.print("\nWelcome, please type a number between 1 and 10 to get the corresponding quote, or R to get a random one: ");
             input = scanner.nextLine();
