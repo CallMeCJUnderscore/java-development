@@ -73,7 +73,7 @@ public class Payroll {
                     }
                     bufferedWriter.write(output);
                 }
-                bufferedWriter.write("]");
+                bufferedWriter.write("]"); //end of payroll file
             }
             bufferedWriter.close();
 
