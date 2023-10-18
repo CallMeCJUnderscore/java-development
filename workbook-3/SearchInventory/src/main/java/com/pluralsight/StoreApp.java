@@ -2,12 +2,14 @@ package com.pluralsight;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Scanner;
 
 public class StoreApp {
     public static void main(String[] args) {
         ArrayList<Product> inventory = getInventory();
-
+        Collections.sort(inventory, Comparator.comparing(Product::getName));
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("We carry the following inventory: ");
