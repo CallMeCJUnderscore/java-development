@@ -32,4 +32,35 @@ public class Room {
     public boolean isAvailable() {
         return !isOccupied && !isDirty;
     }
+
+    public void checkIn(){
+        if (isOccupied == true || isDirty == true){
+            System.out.println("ERROR: ROOM IS NOT SUITABLE FOR USE");
+        }
+        else{
+            System.out.println("ROOM CHECKED IN!");
+            isDirty = true;
+            isOccupied = true;
+        }
+    }
+
+    public void checkOut(){
+        if (isOccupied == false){
+            System.out.println("ERROR: ROOM ALREADY UNOCCUPIED");
+        }
+        else{
+            isOccupied = false;
+            System.out.println("ROOM CHECKED OUT!");
+        }
+    }
+
+    public void cleanRoom(){
+        if (isDirty == false){
+            System.out.println("ERROR: ROOM ALREADY CLEAN");
+        }
+        else{
+            isDirty = false;
+            System.out.println("ROOM CLEANED!");
+        }
+    }
 }

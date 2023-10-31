@@ -3,7 +3,7 @@ package com.pluralsight;
 public class Main {
     public static void main(String[] args) {
         // Test Employee class
-        Employee employee = new Employee(1, "John Doe", "IT", 25.00, 45.00);
+        Employee employee = new Employee(1, "John Doe", "IT", 25.00);
         System.out.println("Employee ID: " + employee.getEmployeeId());
         System.out.println("Employee Name: " + employee.getName());
         System.out.println("Employee Department: " + employee.getDepartment());

@@ -6,13 +6,15 @@ public class Employee {
     private String department;
     private double payRate;
     private double hoursWorked;
+    public double clockIn;
 
-    public Employee(int employeeId, String name, String department, double payRate, double hoursWorked) {
+    public Employee(int employeeId, String name, String department, double payRate) {
         this.employeeId = employeeId;
         this.name = name;
         this.department = department;
         this.payRate = payRate;
-        this.hoursWorked = hoursWorked;
+        hoursWorked = 0;
+        clockIn = 0;
     }
 
     public int getEmployeeId() {
@@ -56,6 +58,52 @@ public class Employee {
             return hoursWorked - 40;
         } else {
             return 0;
+        }
+    }
+
+    public void punchIn(double time){
+        if (time < 0.0 || time > 24.0){
+            System.out.println("ERROR: TIME OUT OF VALID RANGE");
+        }
+        else {
+            clockIn = time;
+        }
+    }
+    public void punchOut(double time){
+        if (time < 0.0 || time > 24.0){
+            System.out.println("ERROR: TIME OUT OF VALID RANGE");
+        }
+        else {
+            if (time>clockIn){
+                hoursWorked += (time - clockIn);
+                clockIn = 0.0;
+            }
+            else if (clockIn == 0.0){
+                System.out.println("ERROR: YOU HAVE NOT YET CLOCKED IN");
+            }
+            else{
+                System.out.println("ERROR: CLOCK OUT TIME BEFORE CLOCK IN TIME");
+            }
+        }
+    }
+
+    public void punchTimeCard(double time){
+        if (clockIn == 0){
+            if (time < 0.0 || time > 24.0){
+                System.out.println("ERROR: TIME OUT OF VALID RANGE");
+            }
+            else {
+                if (time>clockIn){
+                    hoursWorked += (time - clockIn);
+                    clockIn = 0.0;
+                }
+                else{
+                    System.out.println("ERROR: CLOCK OUT TIME BEFORE CLOCK IN TIME");
+                }
+            }
+        }
+        else{
+
         }
     }
 }
