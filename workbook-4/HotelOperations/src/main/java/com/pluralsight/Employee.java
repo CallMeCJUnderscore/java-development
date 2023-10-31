@@ -1,12 +1,14 @@
 package com.pluralsight;
 
+import java.time.LocalDateTime;
+
 public class Employee {
     private int employeeId;
     private String name;
     private String department;
     private double payRate;
     private double hoursWorked;
-    public double clockIn;
+    public double clockInTime;
 
     public Employee(int employeeId, String name, String department, double payRate) {
         this.employeeId = employeeId;
@@ -14,7 +16,7 @@ public class Employee {
         this.department = department;
         this.payRate = payRate;
         hoursWorked = 0;
-        clockIn = 0;
+        clockInTime = 0;
     }
 
     public int getEmployeeId() {
@@ -66,19 +68,25 @@ public class Employee {
             System.out.println("ERROR: TIME OUT OF VALID RANGE");
         }
         else {
-            clockIn = time;
+            clockInTime = time;
         }
+    }
+    public void punchIn(){
+        LocalDateTime now = LocalDateTime.now();
+        double hours = now.getHour();
+        double minutes = now.getMinute() / 60.0;
+        clockInTime = hours+minutes;
     }
     public void punchOut(double time){
         if (time < 0.0 || time > 24.0){
             System.out.println("ERROR: TIME OUT OF VALID RANGE");
         }
         else {
-            if (time>clockIn){
-                hoursWorked += (time - clockIn);
-                clockIn = 0.0;
+            if (time> clockInTime){
+                hoursWorked += (time - clockInTime);
+                clockInTime = 0.0;
             }
-            else if (clockIn == 0.0){
+            else if (clockInTime == 0.0){
                 System.out.println("ERROR: YOU HAVE NOT YET CLOCKED IN");
             }
             else{
@@ -86,16 +94,32 @@ public class Employee {
             }
         }
     }
+    public void punchOut(){
+        LocalDateTime now = LocalDateTime.now();
+        double hours = now.getHour();
+        double minutes = now.getMinute() / 60.0;
+        double time = hours+minutes;
+        if (time> clockInTime){
+            hoursWorked += (time - clockInTime);
+            clockInTime = 0.0;
+        }
+        else if (clockInTime == 0.0){
+            System.out.println("ERROR: YOU HAVE NOT YET CLOCKED IN");
+        }
+        else{
+            System.out.println("ERROR: CLOCK OUT TIME BEFORE CLOCK IN TIME");
+        }
+    }
 
     public void punchTimeCard(double time){
-        if (clockIn == 0){
+        if (clockInTime == 0){
             if (time < 0.0 || time > 24.0){
                 System.out.println("ERROR: TIME OUT OF VALID RANGE");
             }
             else {
-                if (time>clockIn){
-                    hoursWorked += (time - clockIn);
-                    clockIn = 0.0;
+                if (time> clockInTime){
+                    hoursWorked += (time - clockInTime);
+                    clockInTime = 0.0;
                 }
                 else{
                     System.out.println("ERROR: CLOCK OUT TIME BEFORE CLOCK IN TIME");
@@ -103,7 +127,17 @@ public class Employee {
             }
         }
         else{
-
+            if (time < 0.0 || time > 24.0){
+                System.out.println("ERROR: TIME OUT OF VALID RANGE");
+            }
+            else {
+                if (time > clockInTime) {
+                    hoursWorked += (time - clockInTime);
+                    clockInTime = 0.0;
+                } else {
+                    System.out.println("ERROR: CLOCK OUT TIME BEFORE CLOCK IN TIME");
+                }
+            }
         }
     }
 }
