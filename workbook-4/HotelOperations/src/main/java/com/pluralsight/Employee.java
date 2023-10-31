@@ -1,5 +1,7 @@
 package com.pluralsight;
 
+import java.time.LocalDateTime;
+
 public class Employee {
     private int employeeId;
     private String name;
@@ -69,6 +71,12 @@ public class Employee {
             clockIn = time;
         }
     }
+    public void punchIn(){
+        LocalDateTime now = LocalDateTime.now();
+        double hours = now.getHour();
+        double minutes = now.getMinute() / 60.0;
+        clockIn = hours+minutes;
+    }
     public void punchOut(double time){
         if (time < 0.0 || time > 24.0){
             System.out.println("ERROR: TIME OUT OF VALID RANGE");
@@ -84,6 +92,22 @@ public class Employee {
             else{
                 System.out.println("ERROR: CLOCK OUT TIME BEFORE CLOCK IN TIME");
             }
+        }
+    }
+    public void punchOut(){
+        LocalDateTime now = LocalDateTime.now();
+        double hours = now.getHour();
+        double minutes = now.getMinute() / 60.0;
+        double time = hours+minutes;
+        if (time>clockIn){
+            hoursWorked += (time - clockIn);
+            clockIn = 0.0;
+        }
+        else if (clockIn == 0.0){
+            System.out.println("ERROR: YOU HAVE NOT YET CLOCKED IN");
+        }
+        else{
+            System.out.println("ERROR: CLOCK OUT TIME BEFORE CLOCK IN TIME");
         }
     }
 
@@ -103,7 +127,17 @@ public class Employee {
             }
         }
         else{
-
+            if (time < 0.0 || time > 24.0){
+                System.out.println("ERROR: TIME OUT OF VALID RANGE");
+            }
+            else {
+                if (time > clockIn) {
+                    hoursWorked += (time - clockIn);
+                    clockIn = 0.0;
+                } else {
+                    System.out.println("ERROR: CLOCK OUT TIME BEFORE CLOCK IN TIME");
+                }
+            }
         }
     }
 }
