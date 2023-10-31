@@ -41,7 +41,7 @@ public class Hotel {
 
     public boolean bookRoom(int numberOfRooms, boolean isSuite){
         if (isSuite){
-            if(getAvailableSuites() > numberOfRooms){
+            if(getAvailableSuites() >= numberOfRooms){
                 bookedSuites += numberOfRooms;
                 return true;
             }
@@ -50,7 +50,7 @@ public class Hotel {
             }
         }
         else{
-            if(getAvailableRooms() > numberOfRooms){
+            if(getAvailableRooms() >= numberOfRooms){
                 bookedRooms += numberOfRooms;
                 return true;
             }
