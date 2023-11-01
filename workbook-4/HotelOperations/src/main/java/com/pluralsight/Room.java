@@ -34,7 +34,7 @@ public class Room {
     }
 
     public void checkIn(){
-        if (isOccupied == true || isDirty == true){
+        if (isOccupied || isDirty){
             System.out.println("ERROR: ROOM IS NOT SUITABLE FOR USE");
         }
         else{
@@ -45,7 +45,7 @@ public class Room {
     }
 
     public void checkOut(){
-        if (isOccupied == false){
+        if (!isOccupied){
             System.out.println("ERROR: ROOM ALREADY UNOCCUPIED");
         }
         else{
@@ -55,12 +55,17 @@ public class Room {
     }
 
     public void cleanRoom(){
-        if (isDirty == false){
-            System.out.println("ERROR: ROOM ALREADY CLEAN");
+        if (isOccupied){
+            System.out.println("ERROR: ROOM OCCUPIED");
         }
         else{
-            isDirty = false;
-            System.out.println("ROOM CLEANED!");
+            if (!isDirty) {
+                System.out.println("ERROR: ROOM ALREADY CLEAN");
+            }
+            else {
+                isDirty = false;
+                System.out.println("ROOM CLEANED!");
+            }
         }
     }
 }
