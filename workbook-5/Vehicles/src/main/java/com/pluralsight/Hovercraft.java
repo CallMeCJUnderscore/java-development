@@ -7,7 +7,10 @@ public class Hovercraft extends Vehicle{
 
     /*--------------CONSTRUCTORS-------------*/
 
-    //CODE HERE
+    public Hovercraft(String model, String color, int topSpeed, int fuelCapacity, int numberOfPassengers, int cargoCapacity, int airCushionPressure) {
+        super(model, color, topSpeed, fuelCapacity, numberOfPassengers, cargoCapacity);
+        this.airCushionPressure = airCushionPressure;
+    }
 
     /*------------GETTERS/SETTERS------------*/
 
@@ -22,6 +25,6 @@ public class Hovercraft extends Vehicle{
     /*---------------FUNCTIONS---------------*/
 
     public void hover(){
-
+        System.out.println("Hovercraft hover");
     }
 }

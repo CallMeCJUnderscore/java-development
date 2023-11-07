@@ -7,6 +7,11 @@ public class SemiTruck extends Vehicle{
 
     /*--------------CONSTRUCTORS-------------*/
 
+    public SemiTruck(String model, String color, int topSpeed, int fuelCapacity, int numberOfPassengers, int cargoCapacity, int numberOfTrailers) {
+        super(model, color, topSpeed, fuelCapacity, numberOfPassengers, cargoCapacity);
+        this.numberOfTrailers = numberOfTrailers;
+    }
+
     //CODE HERE
 
     /*------------GETTERS/SETTERS------------*/
@@ -22,10 +27,10 @@ public class SemiTruck extends Vehicle{
     /*---------------FUNCTIONS---------------*/
 
     public void loadCargo(){
-
+        System.out.println("Semi Load Cargo");
     }
 
     public void unloadCargo(){
-
+        System.out.println("Semi Unload Cargo");
     }
 }

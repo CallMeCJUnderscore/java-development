@@ -2,18 +2,14 @@ package com.pluralsight;
 
 public class Program {
     public static void main(String[] args) {
-        Moped slowRide = new Moped();
-        slowRide.setColor("Red");
-        slowRide.setFuelCapacity(5);
+        Moped slowRide = new Moped("Model", "Color", 100, 2, 1, 4, 5000);
 
 
-        SemiTruck smokeyAndTheBandit = new SemiTruck();
-        smokeyAndTheBandit.setNumberOfPassengers(2);
+        SemiTruck smokeyAndTheBandit = new SemiTruck("Model", "Color", 100, 2, 1, 4, 5000);
 
-        Car herbie = new Car();
-        herbie.setFuelCapacity(2);
+        Car herbie = new Car("Model", "Color", 100, 2, 1, 4, 5000);;
 
-        Hovercraft landSpeeder = new Hovercraft();
-        landSpeeder.setColor("White");
+
+        Hovercraft landSpeeder = new Hovercraft("Model", "Color", 100, 2, 1, 4, 5000);
         }
 }

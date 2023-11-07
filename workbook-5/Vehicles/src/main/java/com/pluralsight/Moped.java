@@ -7,7 +7,11 @@ public class Moped extends Vehicle{
 
     /*--------------CONSTRUCTORS-------------*/
 
-    //CODE HERE
+    public Moped(String model, String color, int topSpeed, int fuelCapacity, int numberOfPassengers, int cargoCapacity, int maxWeight) {
+        super(model, color, topSpeed, fuelCapacity, numberOfPassengers, cargoCapacity);
+        this.maxWeight = maxWeight;
+    }
+
 
     /*------------GETTERS/SETTERS------------*/
 
@@ -22,6 +26,6 @@ public class Moped extends Vehicle{
     /*---------------FUNCTIONS---------------*/
 
     public void ride(){
-
+        System.out.println("Moped Ride");
     }
 }
