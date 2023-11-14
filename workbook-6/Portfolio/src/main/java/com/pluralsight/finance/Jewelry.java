@@ -25,7 +25,14 @@ public class Jewelry extends FixedAsset{
     /*---------------FUNCTIONS---------------*/
 
     @Override
+    public String toString() {
+        return "Jewelry{" +
+                "karat=" + karat +
+                '}';
+    }
+
+    @Override
     public double getValue() {
-        return super.getValue();
+        return karat * value;
     }
 }

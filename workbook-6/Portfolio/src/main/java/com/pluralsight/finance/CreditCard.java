@@ -43,6 +43,15 @@ public class CreditCard implements IValuable{
 
     /*---------------FUNCTIONS---------------*/
 
+    @Override
+    public String toString() {
+        return "CreditCard{" +
+                "name='" + name + '\'' +
+                ", accountNumber='" + accountNumber + '\'' +
+                ", balance=" + balance +
+                '}';
+    }
+
     public void charge(double amount){
         balance += amount;
     }
@@ -53,6 +62,6 @@ public class CreditCard implements IValuable{
 
     @Override
     public double getValue() {
-        return 0;
+        return -getBalance();
     }
 }
