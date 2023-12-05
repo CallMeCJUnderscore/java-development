@@ -32,5 +32,4 @@ public abstract class FixedAsset implements IValuable {
     }
 
     /*---------------FUNCTIONS---------------*/
-
 }
