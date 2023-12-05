@@ -1,0 +1,1 @@
+SELECT AVG(UnitPrice) FROM northwind.products;
