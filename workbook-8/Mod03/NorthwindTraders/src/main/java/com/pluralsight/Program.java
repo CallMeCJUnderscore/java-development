@@ -14,9 +14,12 @@ public class Program {
         String username = args[0];
         String password = args[1];
 
-        Scanner scanner = new Scanner(System.in);
+            BasicDataSource dataSource = new BasicDataSource();
+            dataSource.setUrl("jdbc:mysql://localhost:3306/northwind");
+            dataSource.setUsername(username);
+            dataSource.setPassword(password);
 
-        try (BasicDataSource dataSource = new BasicDataSource()){
+        Scanner scanner = new Scanner(System.in);
             boolean repeat = true;
             do {
                 System.out.print("""
@@ -32,9 +35,6 @@ public class Program {
                     System.out.println("Goodbye...");
                     repeat = false;
                 } else {
-                    dataSource.setUrl("jdbc:mysql://localhost:3306/northwind");
-                    dataSource.setUsername(username);
-                    dataSource.setPassword(password);
                     try (Connection connection = dataSource.getConnection()) {
                         switch (command) {
                             case "1" -> displayAllProducts(connection);
@@ -47,11 +47,7 @@ public class Program {
                     }
                 }
             }while (repeat);
-        }
-        catch (Exception e){
-            System.out.println("Cannot load DataSource driver!");
-            e.printStackTrace();
-        }
+
     }
 
 
