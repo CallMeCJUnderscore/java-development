@@ -12,13 +12,14 @@ public class Program {
         String username = args[0];
         String password = args[1];
 
-        BasicDataSource dataSource = new BasicDataSource();
-        dataSource.setUrl("jdbc:mysql://localhost:3306/sakila");
-        dataSource.setUsername(username);
-        dataSource.setPassword(password);
+
         Scanner scanner = new Scanner(System.in);
 
-        try (Connection connection = dataSource.getConnection()) {
+        try (BasicDataSource dataSource = new BasicDataSource();
+             Connection connection = dataSource.getConnection()) {
+            dataSource.setUrl("jdbc:mysql://localhost:3306/sakila");
+            dataSource.setUsername(username);
+            dataSource.setPassword(password);
             searchByLastName(connection, scanner);
             searchForMovie(connection, scanner);
         } catch (Exception e) {
