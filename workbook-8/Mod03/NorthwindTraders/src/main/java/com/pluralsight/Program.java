@@ -14,10 +14,6 @@ public class Program {
         String username = args[0];
         String password = args[1];
 
-            BasicDataSource dataSource = new BasicDataSource();
-            dataSource.setUrl("jdbc:mysql://localhost:3306/northwind");
-            dataSource.setUsername(username);
-            dataSource.setPassword(password);
 
         Scanner scanner = new Scanner(System.in);
             boolean repeat = true;
@@ -35,7 +31,11 @@ public class Program {
                     System.out.println("Goodbye...");
                     repeat = false;
                 } else {
-                    try (Connection connection = dataSource.getConnection()) {
+                    try (   BasicDataSource dataSource = new BasicDataSource();
+                            Connection connection = dataSource.getConnection()) {
+                        dataSource.setUrl("jdbc:mysql://localhost:3306/northwind");
+                        dataSource.setUsername(username);
+                        dataSource.setPassword(password);
                         switch (command) {
                             case "1" -> displayAllProducts(connection);
                             case "2" -> displayAllCustomers(connection);
@@ -72,7 +72,8 @@ public class Program {
         }
 
         public static void displayAllProducts(Connection connection){
-            try(PreparedStatement preparedStatement = connection.prepareStatement("SELECT ProductID, ProductName, UnitPrice, UnitsInStock FROM products ORDER BY ProductID;"); ResultSet resultSet = preparedStatement.executeQuery()){
+            try(PreparedStatement preparedStatement = connection.prepareStatement("SELECT ProductID, ProductName, UnitPrice, UnitsInStock FROM products ORDER BY ProductID;");
+                ResultSet resultSet = preparedStatement.executeQuery()){
                 System.out.println("\033[4;1mPRODUCTS\033[0m");
                 while (resultSet.next()) {
                     System.out.println("Product ID: " + resultSet.getString("ProductID"));
