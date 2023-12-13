@@ -1,5 +1,7 @@
 package com.pluralsight;
 
+import org.apache.commons.dbcp2.BasicDataSource;
+
 import java.sql.*;
 import java.util.Scanner;
 
@@ -11,10 +13,10 @@ public class Program {
         }
         String username = args[0];
         String password = args[1];
+
         Scanner scanner = new Scanner(System.in);
 
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
+        try (BasicDataSource dataSource = new BasicDataSource()){
             boolean repeat = true;
             do {
                 System.out.print("""
@@ -30,7 +32,10 @@ public class Program {
                     System.out.println("Goodbye...");
                     repeat = false;
                 } else {
-                    try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/northwind", username, password)) {
+                    dataSource.setUrl("jdbc:mysql://localhost:3306/northwind");
+                    dataSource.setUsername(username);
+                    dataSource.setPassword(password);
+                    try (Connection connection = dataSource.getConnection()) {
                         switch (command) {
                             case "1" -> displayAllProducts(connection);
                             case "2" -> displayAllCustomers(connection);
@@ -43,8 +48,8 @@ public class Program {
                 }
             }while (repeat);
         }
-        catch (ClassNotFoundException e){
-            System.out.println("Cannot load JDBC driver!");
+        catch (Exception e){
+            System.out.println("Cannot load DataSource driver!");
             e.printStackTrace();
         }
     }
