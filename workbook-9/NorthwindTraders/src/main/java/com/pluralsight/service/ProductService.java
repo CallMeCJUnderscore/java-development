@@ -1,6 +1,6 @@
 package com.pluralsight.service;
 
-import com.pluralsight.dao.impl.SimpleProductDAO;
+import com.pluralsight.dao.impl.ISimpleProductDAO;
 import com.pluralsight.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -9,14 +9,14 @@ import org.springframework.stereotype.Component;
 public class ProductService {
 
     /*---------------VARIABLES---------------*/
-    private final SimpleProductDAO simpleProductDAO;
+    private final ISimpleProductDAO ISimpleProductDAO;
 
 
     /*--------------CONSTRUCTORS-------------*/
 
     @Autowired
-    public ProductService(SimpleProductDAO simpleProductDAO){
-        this.simpleProductDAO = simpleProductDAO;
+    public ProductService(ISimpleProductDAO ISimpleProductDAO){
+        this.ISimpleProductDAO = ISimpleProductDAO;
     }
 
     /*------------GETTERS/SETTERS------------*/
@@ -26,15 +26,15 @@ public class ProductService {
     /*---------------FUNCTIONS---------------*/
 
     public void addToInventory(Product product) throws ProductAlreadyExistsException{
-        if(!this.simpleProductDAO.checkIfValid(product)){
+        if(!this.ISimpleProductDAO.checkIfValid(product)){
             throw new ProductAlreadyExistsException();
         }
         else{
-            this.simpleProductDAO.add(product);
+            this.ISimpleProductDAO.add(product);
         }
     }
 
     public void listProducts(){
-        this.simpleProductDAO.getAll();
+        this.ISimpleProductDAO.getAll();
     }
 }

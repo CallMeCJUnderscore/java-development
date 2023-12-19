@@ -1,7 +1,5 @@
 package com.pluralsight;
 
-import com.pluralsight.*;
-import com.pluralsight.dao.impl.SimpleProductDAO;
 import com.pluralsight.model.Product;
 import com.pluralsight.service.ProductAlreadyExistsException;
 import com.pluralsight.service.ProductService;
@@ -33,12 +31,15 @@ public class App {
                 case 2:
                     System.out.println("Type a product ID");
                     int id = scanner.nextInt();
+                    scanner.nextLine();
+
                     System.out.println("What is the name of the product to add?");
                     String name = scanner.nextLine();
                     System.out.println("What is the category of the product to add?");
                     String category = scanner.nextLine();
                     System.out.println("How much does the product cost?");
                     double price = scanner.nextDouble();
+                    scanner.nextLine();
                     Product newProduct = new Product(id, name, category, price);
                     productService.addToInventory(newProduct);
                     break;
