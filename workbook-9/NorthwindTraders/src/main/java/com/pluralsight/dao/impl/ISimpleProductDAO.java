@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class SimpleProductDAO implements IProductDAO {
+public class ISimpleProductDAO implements IProductDAO {
     /*---------------VARIABLES---------------*/
 
     private List<Product> products;
@@ -16,7 +16,7 @@ public class SimpleProductDAO implements IProductDAO {
 
     /*--------------CONSTRUCTORS-------------*/
 
-    public SimpleProductDAO(List<Product> products) {
+    public ISimpleProductDAO() {
         this.products = new ArrayList<>();
         products.add(new Product(1, "Milk", "Dairy", 5.99));
         products.add(new Product(2, "Eggs", "Dairy", 7.00));
@@ -37,8 +37,10 @@ public class SimpleProductDAO implements IProductDAO {
     }
 
     @Override
-    public List<Product> getAll() {
-        return products;
+    public void getAll() {
+        for (Product product : products){
+            System.out.println(product);
+        }
     }
     public boolean checkIfValid(Product newProduct){
         int idToCheck = newProduct.getProductID();
