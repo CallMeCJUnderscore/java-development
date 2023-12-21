@@ -10,6 +10,7 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,6 +67,29 @@ public class JdbcProductDAO implements IProductDAO {
                     product.setProductName(resultSet.getString(2));
                     product.setCategoryID(resultSet.getInt(3));
                     product.setUnitPrice(resultSet.getDouble(4));
+                }
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return product;
+    }
+
+    @Override
+    public Product insert(Product product) {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO products (ProductName, CategoryID, UnitPrice) VALUES(?,?,?)", Statement.RETURN_GENERATED_KEYS)){
+            preparedStatement.setString(1, product.getProductName());
+            preparedStatement.setInt(2, product.getCategoryID());
+            preparedStatement.setDouble(3, product.getUnitPrice());
+
+            int rows = preparedStatement.executeUpdate();
+            try (ResultSet keys = preparedStatement.getGeneratedKeys()) {
+                while (keys.next()) {
+                    System.out.printf("Key %d was added%n",
+                            keys.getInt(1));
+                    System.out.println("==================================");
                 }
             }
         }

@@ -9,6 +9,7 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,6 +60,27 @@ public class JdbcCategoryDAO implements ICategoryDAO {
                 while (resultSet.next()){
                     category.setCategoryID(resultSet.getInt(1));
                     category.setCategoryName(resultSet.getString(2));
+                }
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return category;
+    }
+
+    @Override
+    public Category insert(Category category) {
+        try (Connection connection = dataSource.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO categories (CategoryName) VALUES(?)", Statement.RETURN_GENERATED_KEYS)){
+            preparedStatement.setString(1, category.getCategoryName());
+
+            int rows = preparedStatement.executeUpdate();
+            try (ResultSet keys = preparedStatement.getGeneratedKeys()) {
+                while (keys.next()) {
+                    System.out.printf("Key %d was added%n",
+                            keys.getInt(1));
+                    System.out.println("==================================");
                 }
             }
         }
