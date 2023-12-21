@@ -9,4 +9,5 @@ public interface IProductDAO {
     Product getByID(int id);
     Product insert(Product product);
     void update(int id, Product product);
+    void delete(int id);
 }

@@ -107,4 +107,21 @@ public class JdbcCategoryDAO implements ICategoryDAO {
             e.printStackTrace();
         }
     }
+
+
+    @Override
+    public void delete(int id) {
+        try(Connection connection = dataSource.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM categories WHERE CategoryID=?")){
+            preparedStatement.setInt(1, id);
+
+            int rows = preparedStatement.executeUpdate();
+            if (rows == 0){
+                throw new SQLException("Deleting category failed, no rows affected");
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 }

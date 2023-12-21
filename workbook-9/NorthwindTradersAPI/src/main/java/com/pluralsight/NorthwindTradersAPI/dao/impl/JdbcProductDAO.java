@@ -76,7 +76,7 @@ public class JdbcProductDAO implements IProductDAO {
     @Override
     public Product insert(Product product) {
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO products (ProductName, CategoryID, UnitPrice) VALUES(?,?,?)", Statement.RETURN_GENERATED_KEYS)){
+             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO products (ProductName, CategoryID, UnitPrice) VALUES(?,?,?)")){
             preparedStatement.setString(1, product.getProductName());
             preparedStatement.setInt(2, product.getCategoryID());
             preparedStatement.setDouble(3, product.getUnitPrice());
@@ -104,7 +104,7 @@ public class JdbcProductDAO implements IProductDAO {
     public void update(int id, Product product) {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement("UPDATE products SET" +
-                     "ProductName=?, CategoryID=?, UnitPrice=? WHERE ProductID=?", Statement.RETURN_GENERATED_KEYS)){
+                     "ProductName=?, CategoryID=?, UnitPrice=? WHERE ProductID=?")){
             preparedStatement.setString(1, product.getProductName());
             preparedStatement.setInt(2, product.getCategoryID());
             preparedStatement.setDouble(3, product.getUnitPrice());
@@ -113,6 +113,22 @@ public class JdbcProductDAO implements IProductDAO {
             int rows = preparedStatement.executeUpdate();
             if (rows == 0){
                 throw new SQLException("Updating product failed, no rows affected");
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void delete(int id) {
+        try(Connection connection = dataSource.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM Products WHERE ProductID=?")){
+            preparedStatement.setInt(1, id);
+
+            int rows = preparedStatement.executeUpdate();
+            if (rows == 0){
+                throw new SQLException("Deleting product failed, no rows affected");
             }
         }
         catch (Exception e){
