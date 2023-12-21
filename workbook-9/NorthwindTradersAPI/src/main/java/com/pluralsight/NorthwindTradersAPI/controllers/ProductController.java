@@ -1,7 +1,6 @@
 package com.pluralsight.NorthwindTradersAPI.controllers;
 
 import com.pluralsight.NorthwindTradersAPI.dao.interfaces.IProductDAO;
-import com.pluralsight.NorthwindTradersAPI.models.Category;
 import com.pluralsight.NorthwindTradersAPI.models.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

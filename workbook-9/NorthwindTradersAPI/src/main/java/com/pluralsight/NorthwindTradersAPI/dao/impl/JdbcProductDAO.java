@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -85,12 +82,8 @@ public class JdbcProductDAO implements IProductDAO {
             preparedStatement.setDouble(3, product.getUnitPrice());
 
             int rows = preparedStatement.executeUpdate();
-            try (ResultSet keys = preparedStatement.getGeneratedKeys()) {
-                while (keys.next()) {
-                    System.out.printf("Key %d was added%n",
-                            keys.getInt(1));
-                    System.out.println("==================================");
-                }
+            if (rows == 0){
+                throw new SQLException("Creating category failed, no rows affected");
             }
         }
         catch (Exception e){
