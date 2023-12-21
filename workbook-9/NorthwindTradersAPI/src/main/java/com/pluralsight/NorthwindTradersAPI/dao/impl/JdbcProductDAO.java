@@ -1,7 +1,7 @@
 package com.pluralsight.NorthwindTradersAPI.dao.impl;
 
 import com.pluralsight.NorthwindTradersAPI.dao.interfaces.IProductDAO;
-import com.pluralsight.NorthwindTradersAPI.models.Category;
+
 import com.pluralsight.NorthwindTradersAPI.models.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -35,7 +35,7 @@ public class JdbcProductDAO implements IProductDAO {
 
         try(Connection connection = dataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT ProductID, ProductName, CategoryID, UnitPrice FROM products;");
-            ResultSet resultSet = preparedStatement.executeQuery();){
+            ResultSet resultSet = preparedStatement.executeQuery()){
             while (resultSet.next()){
                 int productID = resultSet.getInt(1);
                 String name = resultSet.getString(2);
@@ -83,12 +83,40 @@ public class JdbcProductDAO implements IProductDAO {
 
             int rows = preparedStatement.executeUpdate();
             if (rows == 0){
-                throw new SQLException("Creating category failed, no rows affected");
+                throw new SQLException("Creating product failed, no rows affected");
+            }
+            try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    int generatedId = generatedKeys.getInt(1);
+                    product.setProductID(generatedId);
+                } else {
+                    throw new SQLException("Creating product failed, no ID obtained.");
+                }
             }
         }
         catch (Exception e){
             e.printStackTrace();
         }
         return product;
+    }
+
+    @Override
+    public void update(int id, Product product) {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE products SET" +
+                     "ProductName=?, CategoryID=?, UnitPrice=? WHERE ProductID=?", Statement.RETURN_GENERATED_KEYS)){
+            preparedStatement.setString(1, product.getProductName());
+            preparedStatement.setInt(2, product.getCategoryID());
+            preparedStatement.setDouble(3, product.getUnitPrice());
+            preparedStatement.setInt(4, id);
+
+            int rows = preparedStatement.executeUpdate();
+            if (rows == 0){
+                throw new SQLException("Updating product failed, no rows affected");
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

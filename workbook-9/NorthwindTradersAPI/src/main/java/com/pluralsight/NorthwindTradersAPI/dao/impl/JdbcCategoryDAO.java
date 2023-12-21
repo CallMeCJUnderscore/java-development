@@ -76,10 +76,35 @@ public class JdbcCategoryDAO implements ICategoryDAO {
             if (rows ==0){
                 throw new SQLException("Creating category failed, no rows affected");
             }
+            try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    int generatedId = generatedKeys.getInt(1);
+                    category.setCategoryID(generatedId);
+                } else {
+                    throw new SQLException("Creating category failed, no ID obtained.");
+                }
+            }
         }
         catch (Exception e){
             e.printStackTrace();
         }
         return category;
+    }
+
+    @Override
+    public void update(int id, Category category) {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE categories SET CategoryName=? WHERE CategoryID=?", Statement.RETURN_GENERATED_KEYS)){
+            preparedStatement.setString(1, category.getCategoryName());
+            preparedStatement.setInt(2, id);
+
+            int rows = preparedStatement.executeUpdate();
+            if (rows ==0){
+                throw new SQLException("Updating category failed, no rows affected");
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }
